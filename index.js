@@ -17,7 +17,7 @@ if (!fs.existsSync(executable)) {
   _.exit(`Cannot find module '${executable}'`);
 }
 
-spawn('node', [executable], {
+spawn('node', [executable, ..._.args], {
   shell: true,
   stdio: 'inherit',
 });
