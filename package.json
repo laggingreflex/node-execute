@@ -1,0 +1,14 @@
+{
+  "name": "node-execute",
+  "version": "0.0.0",
+  "description": "Execute ~/.node_modules",
+  "main": "index.js",
+  "bin": {
+    "node-execute": "index.js",
+    "nx": "index.js"
+  },
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": "laggingreflex/node-execute"
+}
