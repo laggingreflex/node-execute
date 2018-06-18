@@ -8,16 +8,18 @@ if (!fs.existsSync(_.homedir('.node_modules'))) {
   _.exit(`Please create '~/.node_modules'`);
 }
 
-if (!_.file) {
-  _.exit(`Need a file to execute`);
+if (process.argv.length < 3) {
+  _.exit(`Need a module name to execute`);
 }
 
-const executable = _.nxDir(_.file + '.js');
-if (!fs.existsSync(executable)) {
-  _.exit(`Cannot find module '${executable}'`);
+const moduleRawPath = _.nxDir(process.argv[2]);
+let moduleRequirePath;
+try {
+  moduleRequirePath = require.resolve(_.nxDir(process.argv[2]));
+} catch (error) {
+  _.exit(`Cannot find module '${moduleRawPath}'`);
 }
 
-spawn('node', [executable, ..._.args], {
-  shell: true,
-  stdio: 'inherit',
-});
+process.argv.splice(1, 2, moduleRequirePath);
+
+require(moduleRequirePath);
